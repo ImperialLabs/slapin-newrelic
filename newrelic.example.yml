@@ -1,0 +1,21 @@
+plugin:
+  type: api
+  managed: true
+  mount_config: '/newrelic/config/newrelic.yml' # Mounts this file to the plugin
+  api_config:
+    url: 'http://localhost:4700'
+    endpoint: '/command'
+  config:
+    Image: 'slapi/slapin-newrelic'
+    HostConfig:
+      PortBindings:
+        4700/tcp:
+          -
+            HostIp: '0.0.0.0'
+            HostPort: '4700'
+    Tty: true
+    RestartPolicy:
+     Name: on-failure
+     MaximumRetryCount: 2
+newrelic:
+  token: # Enter NR Token here
