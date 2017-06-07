@@ -40,8 +40,8 @@ class NewRelic < Sinatra::Base
     @command = @params[:command]
     @channel = @params[:chat][:channel]
     @text_array = @params[:chat][:text].split(' ')
-    apps if @command[0] == 'search'
-    servers if @command[0] == 'save'
+    list_apps if @command[0] == 'apps'
+    list_servers if @command[0] == 'servers'
   end
 
   get '/info' do
