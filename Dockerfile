@@ -21,4 +21,4 @@ RUN apk update && apk add \
 
 EXPOSE 4700
 
-ENTRYPOINT ["supervisord", "-c", "${APP_HOME}/supervisord.conf", "-n"]
+ENTRYPOINT ["supervisord", "-c", "/newrelic/supervisord.conf", "-n"]
