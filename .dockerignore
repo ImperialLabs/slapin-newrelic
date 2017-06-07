@@ -1,11 +1,11 @@
 # ignore any config files
-  ./.bundle/
-  ./.vendor/bundle
-  ./.bin
-  ./.vscode
-  ./.github
-  ./Gemfile.lock
-  ./newrelic.example.yml
-  ./.rubocop.yml
-  ./.rspec
-  ./.gitignore
+./.bundle/
+./.vendor/bundle
+./.bin
+./.vscode
+./.github
+./Gemfile.lock
+./newrelic.example.yml
+./.rubocop.yml
+./.rspec
+./.gitignore
