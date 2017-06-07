@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-require_relative 'newrelic'
+require_relative './lib/newrelic'
 run NewRelic

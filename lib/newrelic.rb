@@ -5,7 +5,6 @@ require 'httparty'
 require 'sinatra'
 require 'sinatra/base'
 require 'sinatra/config_file'
-# require_relative 'party'
 
 # Sinatra API App
 class NewRelic < Sinatra::Base
@@ -14,16 +13,14 @@ class NewRelic < Sinatra::Base
 
   set :environment, :production
 
-  config_file 'environments.yml'
-  config_file './config/newrelic.yml' if File.file?('./config/newrelic.yml')
+  config_file '../environments.yml'
+  config_file '../config/newrelic.yml' if File.file?('../config/newrelic.yml')
 
-  def initialize
-    @bot_url = ENV['BOT_URL'] ? ENV['BOT_URL'] : settings.newrelic.bot_url
-    @nr_url = 'https://api.newrelic.com/v2/'
-    @nr_token = ENV['NR_TOKEN'] ? ENV['NR_TOKEN'] : settings.newrelic.token
-    # Future Option
-    # @bot_token = ENV['BOT_TOKEN'] ? ENV['BOT_TOKEN'] : settings.new_relic.bot_token
-  end
+  @bot_url = ENV['BOT_URL'] ? ENV['BOT_URL'] : settings.newrelic.bot_url
+  @nr_url = 'https://api.newrelic.com/v2/'
+  @nr_token = ENV['NR_TOKEN'] ? ENV['NR_TOKEN'] : settings.newrelic.token
+  # Future Option
+  # @bot_token = ENV['BOT_TOKEN'] ? ENV['BOT_TOKEN'] : settings.new_relic.bot_token
 
   post '/command' do
     raise 'missing user' unless params[:chat][:user]
