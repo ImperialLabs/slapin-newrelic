@@ -54,6 +54,8 @@ class NewRelic < Sinatra::Base
     }.to_json
   end
 
+  private
+
   def app_query
     HTTParty.get("#{@nr_url}/applications.json", headers: { 'X-Api-Key' => @nr_token })
   end

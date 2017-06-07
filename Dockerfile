@@ -14,6 +14,7 @@ COPY . $APP_HOME
 RUN apk update && apk add \
     supervisor &&\
     if [ -f Gemfile.lock ]; then rm -f Gemfile.lock; fi &&\
+    gem install bundler io-console &&\
     bundle install &&\
     rm -rf /var/cache/apk/* &&\
     rm -rf /tmp/*
