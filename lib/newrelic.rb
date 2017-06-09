@@ -64,7 +64,7 @@ class NewRelic < Sinatra::Base
   end
 
   def build_list
-    text = []
+    text = ["Status | Application \n"]
     @apps['applications'].each do |app|
       text << "#{status_set(app)} #{app['name']}\n"
     end
