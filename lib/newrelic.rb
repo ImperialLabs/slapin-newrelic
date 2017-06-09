@@ -16,30 +16,16 @@ class NewRelic < Sinatra::Base
 
   config_file '../environments.yml'
 
-  if File.file?('config/newrelic.yml')
-    config_file '../config/newrelic.yml'
-    @nr_token = settings.newrelic['token']
-  elsif ENV['NR_TOKEN']
-    @nr_token = ENV['NR_TOKEN']
-  else
-    raise '[ERROR] No token or config file!'
-  end
-
-  @bot_url = ENV['BOT_URL']
-  @nr_url = 'https://api.newrelic.com/v2/'
   # Future Option
-  # @bot_token = ENV['BOT_TOKEN'] ? ENV['BOT_TOKEN'] : settings.new_relic.bot_token
+  # @bot_token = ENV['BOT_TOKEN']
 
   post '/command' do
     raise 'missing user' unless params[:chat][:user]
     raise 'missing channel' unless params[:chat][:channel]
-    raise 'missing type' unless params[:chat][:type]
-    raise 'missing timestamp' unless params[:chat][:timestamp]
     raise 'missing command' unless params[:command]
     @params = params
     @command = @params[:command]
     @channel = @params[:chat][:channel]
-    @text_array = @params[:chat][:text].split(' ')
     list_apps if @command[0] == 'apps'
     list_servers if @command[0] == 'servers'
   end
@@ -54,52 +40,62 @@ class NewRelic < Sinatra::Base
     }.to_json
   end
 
-  private
-
-  def app_query
-    HTTParty.get("#{@nr_url}/applications.json", headers: { 'X-Api-Key' => @nr_token })
-  end
-
-  def status_set
-    returns ':white_check_mark: ' if app['health_status'] == 'green'
-    returns ':no_entry_sign: ' if app['health_status'] == 'red'
-    returns ':grey_question: ' unless /(green|red)/.match?(app['health_status'])
-  end
-
   def list_apps
     text = ''
-    apps = app_query
-    apps['applications'].each do |app|
-      text << status_set
-      text << "#{app['name']}\n"
+    @apps = app_query
+    text = build_list if @apps['applications']
+    attachment('New Relic App list', 'New Relic App list', text) if @apps['applications']
+    raise "[ERROR] - App returned #{@apps}" unless @apps['applications']
+  end
+
+  def app_query
+    HTTParty.get(
+      'https://api.newrelic.com/v2/applications.json',
+      headers: {
+        'X-Api-Key' => ENV['NR_TOKEN']
+      }
+    )
+  end
+
+  def status_set(app)
+    return ':white_check_mark: ' if app['health_status'] == 'green'
+    return ':no_entry_sign: ' if app['health_status'] == 'red'
+    return ':grey_question: ' unless /(green|red)/.match?(app['health_status'])
+  end
+
+  def build_list
+    text = []
+    @apps['applications'].each do |app|
+      text << "#{status_set(app)} #{app['name']}\n"
     end
-    attachment('New Relic App list', 'New Relic App list', text)
+    text
   end
 
   def speak(text)
     HTTParty.post(
-      "#{@bot_url}/v1/speak",
+      "http://#{ENV['BOT_URL']}/v1/speak",
       body: {
         'channel' => @channel,
         'text' => text
       },
       headers: {}
     )
-    nil
+    200
   end
 
   def attachment(fallback, title, text)
     HTTParty.post(
-      "#{@bot_url}/v1/attachment",
+      "http://#{ENV['BOT_URL']}/v1/attachment",
       body: {
         'channel' => @channel,
         'attachments' => {
           'fallback' => fallback,
           'title' => title,
-          'text' => text
+          'text' => text.join
         }
       },
       headers: {}
     )
+    200
   end
 end
