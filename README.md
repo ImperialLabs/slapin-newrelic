@@ -26,7 +26,7 @@ Basic Support for APM and Servers Services from New Relic
 
 -   Get an integration API Key: <https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys#viewing>
 -   Set the NR_TOKEN in the config below or you can use the example file [newrelic.example.yml](newrelic.example.yml)
--   Place configured file at `./slapi/config/plugins/newrelic.yml`
+-   Inside SLAPI Directory, place configured file at `./config/plugins/newrelic.yml`
 -   Start bot or just run `@bot reload` from chat
 -   Profit
 
