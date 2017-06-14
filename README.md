@@ -64,6 +64,14 @@ Primary commands are broken down by New Relic Services, then expanded on from th
 
 Main Level command lists all Apps (APM) in New Relic and their current status
 
+`@bot apps`
+
+![apps command](https://github.com/ImperialLabs/slapin-newrelic/blob/master/img/apps_nr_command.png)
+
 ## Servers
 
 Main Level command lists all servers reporting to New Relic and their current status
+
+`@bot servers`
+
+![apps command](https://github.com/ImperialLabs/slapin-newrelic/blob/master/img/servers_nr_command.png)
