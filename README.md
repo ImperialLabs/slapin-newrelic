@@ -66,7 +66,7 @@ Main Level command lists all Apps (APM) in New Relic and their current status
 
 `@bot apps`
 
-![apps command](https://github.com/ImperialLabs/slapin-newrelic/blob/master/img/apps_nr_command.png)
+![apps command](https://github.com/ImperialLabs/slapin-newrelic/raw/master/img/apps_nr_cmd.png)
 
 ## Servers
 
@@ -74,4 +74,4 @@ Main Level command lists all servers reporting to New Relic and their current st
 
 `@bot servers`
 
-![apps command](https://github.com/ImperialLabs/slapin-newrelic/blob/master/img/servers_nr_command.png)
+![apps command](https://github.com/ImperialLabs/slapin-newrelic/raw/master/img/servers_nr_cmd.png)
