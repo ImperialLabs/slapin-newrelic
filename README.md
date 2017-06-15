@@ -34,9 +34,6 @@ Basic Support for APM and Servers Services from New Relic
 plugin:
   type: api
   managed: true
-  build: false
-  build_force: false
-  build_stream: false
   api_config:
     url: 'http://localhost:4700'
     endpoint: '/command'
@@ -44,16 +41,6 @@ plugin:
     Image: 'slapi/slapin-newrelic'
     Env:
       - NR_TOKEN='00000000000CHANGEME'
-    HostConfig:
-      PortBindings:
-        4700/tcp:
-          -
-            HostIp: '0.0.0.0'
-            HostPort: '4700'
-    Tty: true
-    RestartPolicy:
-     Name: on-failure
-     MaximumRetryCount: 2
 ```
 
 # Commands/Usage

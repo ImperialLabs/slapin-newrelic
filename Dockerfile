@@ -2,6 +2,10 @@ FROM ruby:2.4-alpine
 
 MAINTAINER SLAPI Devs
 
+LABEL "description"="New Relic plugin - Currently Supports APM and Servers"
+LABEL "apps"="list APM Apps from New Relic"
+LABEL "servers"="List servers in New Relic"
+
 ENV APP_HOME /newrelic
 
 RUN mkdir -p $APP_HOME && chmod 777 $APP_HOME
